@@ -393,12 +393,13 @@ namespace hypfacebook{
 	void post_photo( const char *image_path, const char *message ){
 		NSString *ns_image_path = [ [NSString alloc] initWithUTF8String: image_path];
 		NSString *ns_message = [ [NSString alloc] initWithUTF8String: message];
-        NSString *file_name = [[NSBundle mainBundle] pathForResource: ns_image_path]
+        NSString *file_name = [[NSBundle mainBundle] pathForResource: ns_image_path 
+                                                              ofType: @"jpg"];
         UIImage *image = [UIImage imageWithContentsOfFile: file_name];
-		NSDictionary parameters = 
-            [NSDictionary dictionaryWithObjects: image, @"source",
-                                                 message, @"message",
-                                                 nil];
+		NSDictionary *parameters = 
+            [NSDictionary dictionaryWithObjectsAndKeys: image, @"source",
+                                                        message, @"message",
+                                                        nil];
 		[[HypFacebook instance]
 			fbRequest: @"me/photos"
 			HTTPMethod: @"POST"

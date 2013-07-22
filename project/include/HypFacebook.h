@@ -19,6 +19,7 @@ namespace hypfacebook {
 	bool connectFor_publish( const char *token, bool allow_ui, const char *permissions );
 	void disconnect( );
 	void request( const char *sGraphRequest, const char *sParamsName, const char *sParamsVals, const char *sHttpMethod );
+    void post_photo( const char *image_path, const char *message );
 	void dialog( const char *sAction , const char *sParamsName , const char *sParamsVals );
 	void requestNew_publish_perm( const char *sPerms );
 	void requestNew_read_perm( const char *sPerms );

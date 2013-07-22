@@ -179,7 +179,7 @@ extern "C"{
 	value CPP_FB_post_photo( value sImagePath, value sMessage ){
 		post_photo(
 		    val_string( sImagePath ),
-		    val_string( sMessage ),
+		    val_string( sMessage )
 		);
 		return alloc_null( );
 	}
