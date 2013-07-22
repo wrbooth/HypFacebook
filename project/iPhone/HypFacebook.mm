@@ -390,6 +390,21 @@ namespace hypfacebook{
 			parameters:_getDictFromStrings( sParamsName, sParamsVal )];
 	}
 
+	void post_photo( const char *image_path, const char *message ){
+		NSString *ns_image_path = [ [NSString alloc] initWithUTF8String: image_path];
+		NSString *ns_message = [ [NSString alloc] initWithUTF8String: message];
+        NSString *file_name = [[NSBundle mainBundle] pathForResource: ns_image_path]
+        UIImage *image = [UIImage imageWithContentsOfFile: file_name];
+		NSDictionary parameters = 
+            [NSDictionary dictionaryWithObjects: image, @"source",
+                                                 message, @"message",
+                                                 nil];
+		[[HypFacebook instance]
+			fbRequest: @"me/photos"
+			HTTPMethod: @"POST"
+			parameters: parameters];
+	}
+
 	void dialog( const char *sDialog, const char *sParamsName , const char *sParamsVal ) {
 		[[HypFacebook instance] presentDialog:[ [NSString alloc] initWithUTF8String:sDialog]
 								withParameters:_getDictFromStrings(sParamsName, sParamsVal)];

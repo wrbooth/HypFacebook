@@ -176,6 +176,15 @@ extern "C"{
 	}
 	DEFINE_PRIM( CPP_FB_request , 4 );
 
+	value CPP_FB_post_photo( value sImagePath, value sMessage ){
+		post_photo(
+		    val_string( sImagePath ),
+		    val_string( sMessage ),
+		);
+		return alloc_null( );
+	}
+	DEFINE_PRIM( CPP_FB_post_photo , 2 );
+
 	value CPP_FB_dialog( value sAction , value sParamsName , value sParamsValues ){
 		dialog(
 			val_string( sAction ) ,

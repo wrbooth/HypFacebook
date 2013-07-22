@@ -172,6 +172,29 @@ import nme.events.EventDispatcher;
 			#end
 
 		}
+		
+        /**
+		 * Make a graph request to facebook
+		 * @param  sRequest : the request, ex: "/me"
+		 * @param  h : a hash of params and values
+		 * @param  ?bPost   : true if its a POST request. GET otherwise
+		 * @return Void
+		 */
+		public function post_photo( sImagePath : String , sMessage : String ) : Void {
+
+			if( sMessage == null ) {
+				sMessage = "";
+			}
+
+			#if android
+			jni_post_photo( _JNI_instance , sImagePath, sMessage);
+			#end
+
+			#if ios
+			CPP_FB_post_photo( sImagePath, sMessage);
+			#end
+
+		}
 
 		/**
 		 * requestNew_publish_permissions
@@ -461,6 +484,17 @@ import nme.events.EventDispatcher;
 		*/
 		@CPP("HypFacebook")
 		public function CPP_FB_request( sGraphRequest : String, sParamsName : String, sParamsValues : String, sHTTPMethod : String ) : Void {
+
+		}
+
+		/**
+		*
+		*
+		* @public
+		* @return	void
+		*/
+		@CPP("HypFacebook")
+		public function CPP_FB_post_photo( sImagePath : String, sMessage : String ) : Void {
 
 		}
 
