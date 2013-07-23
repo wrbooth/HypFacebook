@@ -390,15 +390,23 @@ namespace hypfacebook{
 			parameters:_getDictFromStrings( sParamsName, sParamsVal )];
 	}
 
+    //TODO: I'm handling the errors state VERY poorly here.
 	void post_photo( const char *image_path, const char *message ){
 		NSString *ns_image_path = [ [NSString alloc] initWithUTF8String: image_path];
 		NSString *ns_message = [ [NSString alloc] initWithUTF8String: message];
         NSString *file_name = [[NSBundle mainBundle] pathForResource: ns_image_path 
                                                               ofType: @"jpg"];
+	    NSLog(@"Posting image at location %@ with message %@", file_name, ns_message);
         UIImage *image = [UIImage imageWithContentsOfFile: file_name];
+
+        if (!image) {
+            NSLog(@"No image file found at %@", file_name);
+            return;
+        }
+
 		NSDictionary *parameters = 
             [NSDictionary dictionaryWithObjectsAndKeys: image, @"source",
-                                                        message, @"message",
+                                                        ns_message, @"message",
                                                         nil];
 		[[HypFacebook instance]
 			fbRequest: @"me/photos"
