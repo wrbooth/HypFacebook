@@ -116,15 +116,20 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		* @return	void
 		*/
 		-(bool) connect:(NSString*)NSappID withUI:(BOOL)withUI{
+            FBSession* activeSession = [FBSession activeSession];
+            if ([activeSession isOpen]) {
+                NSLog(@"Session already connected");
+                return true;
+            }
+
 			NSLog(@"connect with id: %@",NSappID);
 			[FBSettings setDefaultAppID:NSappID];
-			[FBSession openActiveSessionWithReadPermissions:nil
-				allowLoginUI:withUI
-				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+            [activeSession openWithCompletionHandler:
+                ^(FBSession *session, FBSessionState state, NSError *error) {
 					[self sessionStateChanged:session state:state error:error];
 				}
 			];
-			return [FBSession.activeSession isOpen];
+			return false;
 		}
 
 		-(bool) connectForRead:(NSString*)NSappID withUI:(BOOL)withUI withReadPerms:(NSArray *)NSAPerms {
