@@ -119,6 +119,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             FBSession* activeSession = [FBSession activeSession];
             if ([activeSession isOpen]) {
                 NSLog(@"Session already connected");
+                [self sessionStateChanged: activeSession 
+                                    state: FBSessionStateOpen
+                                    error: nil];
                 return true;
             }
 
