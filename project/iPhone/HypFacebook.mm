@@ -309,7 +309,14 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		            if (!error) {
 		                // We have a valid session
 		                NSLog(@"User session found");
-		                hypfb_dispatch_event("OPENED" , [[[session accessTokenData] accessToken] UTF8String], "");
+                        NSDate* expiration = 
+                            [[session accessTokenData] expirationDate];
+                        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                        //[dateFormat setLocale:enUSPOSIXLocale];
+                        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+                        NSString* date = [dateFormat stringFromDate: expiration];
+                        NSLog(@"EXPIRATION: %@", date);
+		                hypfb_dispatch_event("OPENED" , [[[session accessTokenData] accessToken] UTF8String], [date UTF8String]);
 		            }
 		            break;
 		        case FBSessionStateClosed:

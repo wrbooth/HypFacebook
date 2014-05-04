@@ -328,6 +328,7 @@ import nme.events.EventDispatcher;
 				case HypFacebookEvent.OPENED:
 					ev = new HypFacebookEvent( sEventType );
 					ev.sFacebook_token = sArg1;
+					ev.sExpiration = sArg2;
 
 				case HypFacebookEvent.CLOSED_LOGIN_FAILED:
 					ev = new HypFacebookEvent( sEventType );
@@ -688,6 +689,7 @@ class HypFacebookEvent extends Event{
 
 
 	public var sFacebook_token	: String;
+	public var sExpiration	    : String;
 	public var sError			: String;
 
 	public static inline var OPENED					: String = 'OPENED';
